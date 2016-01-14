@@ -29,19 +29,19 @@ function prompter(cz, commit) {
       name: 'issues',
       message: 'Jira Issue ID(s) (required):\n',
       validate: function(input) {
-        if (!input) {
+        if ( !input || !( input.replace(/\s/g, '') ) ) {
           return 'Must specify issue IDs, otherwise, just use a normal commit message';
         } else {
           return true;
         }
       }
     },
-    {
+    /*{
       type: 'input',
       name: 'time',
       message: 'Time spent (i.e. 3h 15m) (optional):\n'
-    },
-    {
+    },*/
+    /*{
       type: 'input',
       name: 'workflow',
       message: 'Workflow command (testing, closed, etc.) (optional):\n',
@@ -52,16 +52,22 @@ function prompter(cz, commit) {
           return true;
         }
       }
+    },*/
+    {
+      type: 'input',
+      name: 'message',
+      message: 'Commit message (required):\n',
+      validate: function(input) {
+        if ( !input || !( input.replace(/\s/g, '') ) ) {
+          return "Commit message cannot be empty."
+        }
+        return true;
+      }
     },
     {
       type: 'input',
       name: 'comment',
       message: 'Jira comment (optional):\n'
-    },
-    {
-      type: 'input',
-      name: 'message',
-      message: 'Anything else that would be helpful to note (not included in the Jira issue) (optional):\n'
     }
   ], commitAnswers);
 
